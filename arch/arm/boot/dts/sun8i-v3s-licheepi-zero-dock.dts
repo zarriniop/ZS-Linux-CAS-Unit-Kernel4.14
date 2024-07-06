@@ -111,3 +111,23 @@
 		voltage = <800000>;
 	};
 };
+
+&i2c0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c0_pins>;
+	status = "okay";
+	
+	ns2009: ns2009@48 {
+		compatible = "nsiway,ns2009";
+		reg = <0x48>;
+	};
+
+	gt911: touchscreen@5d {
+		compatible = "goodix,gt911";
+		reg = <0x5d>;
+		interrupt-parent = <&pio>;
+		interrupts = <1 3 IRQ_TYPE_EDGE_FALLING>;
+		irq-gpios = <&pio 1 3 GPIO_ACTIVE_HIGH>;  /*PB3*/
+		reset-gpios = <&pio 4 20 GPIO_ACTIVE_HIGH>; /*PE20*/
+	};
+};
